@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TestApp</string>
+
+    <!--MAIN ACTIVITY-->
+    <string name="main_activity_request_error">There was an error requesting the rates</string>
+    <string name="main_activity_rate">Rate: %f</string>
+    <string name="main_activity_date">Date: %s</string>
+</resources>
