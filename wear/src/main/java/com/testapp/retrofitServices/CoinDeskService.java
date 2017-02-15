@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+@SuppressWarnings("WeakerAccess")
 public interface CoinDeskService {
 
 	@GET("v1/bpi/historical/close.json")

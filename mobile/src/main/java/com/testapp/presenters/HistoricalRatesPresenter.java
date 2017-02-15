@@ -40,7 +40,7 @@ public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesVi
 	public void init(Context context, String currency, Bundle savedInstanceState) {
 		this.context = context;
 		this.currency = currency;
-		if (isViewAttached()) {
+		if (getView() != null) {
 			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 			getView().setupSwipeRefresh(this);
 			showCachedData();
@@ -57,14 +57,14 @@ public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesVi
 
 	private void showCachedData() {
 		String ratesBody = SharedPrefsManager.getSharedPrefs(context).getString(Keys.historicalRatesBody.name() + currency, null);
-		if (ratesBody != null) {
+		if (ratesBody != null && getView() != null) {
 			List<HistoricalRate> historicalRates = parseHistoricalRates(new Gson().fromJson(ratesBody, LinkedTreeMap.class));
 			getView().presentBitcoinRates(historicalRates);
 		}
 	}
 
 	private void queryRates() {
-		if (!isViewAttached()) {
+		if (getView() == null) {
 			return;
 		}
 		getView().setRefreshing(true);
@@ -81,7 +81,7 @@ public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesVi
 		call.enqueue(new Callback<LinkedTreeMap>() {
 			@Override
 			public void onResponse(Call<LinkedTreeMap> call, Response<LinkedTreeMap> response) {
-				if (isViewAttached()) {
+				if (getView() != null) {
 					if (response.isSuccessful()) {
 						storeInPrefs(response.body());
 						List<HistoricalRate> historicalRates = parseHistoricalRates(response.body());
@@ -96,7 +96,7 @@ public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesVi
 
 			@Override
 			public void onFailure(Call<LinkedTreeMap> call, Throwable t) {
-				if (isViewAttached()) {
+				if (getView() != null) {
 					getView().showMessage(R.string.historical_activity_request_error);
 					Log.e(TAG, t.getMessage());
 					getView().setRefreshing(false);

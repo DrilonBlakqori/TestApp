@@ -2,11 +2,13 @@ package com.testapp.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.testapp.R;
@@ -38,6 +40,12 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 		presenter.init(this, savedInstanceState);
 	}
 
+	@Override
+	protected void onDestroy() {
+		presenter.deInit();
+		super.onDestroy();
+	}
+
 	private void setupRecycler() {
 		rateAdapter = new MainRateAdapter(this);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -49,6 +57,11 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 	public void setupSwipeRefresh(OnRefreshListener onRefreshListener) {
 		swipeRefresh.setOnRefreshListener(onRefreshListener);
 		swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+	}
+
+	@Override
+	public void showMessage(@StringRes int resId) {
+		Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
