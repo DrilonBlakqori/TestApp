@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -38,11 +37,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 		presenter.init(this, savedInstanceState);
 	}
 
-	private void setupRecycler() {
+	public void setupRecycler() {
 		rateAdapter = new MainRateAdapter(this);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerView.setAdapter(rateAdapter);
-		recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 	}
 
 	@Override

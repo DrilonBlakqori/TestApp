@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">TestApp</string>
-    <string name="hello_round">Hello Round World!</string>
-    <string name="hello_square">Hello Square World!</string>
+
+    <!--HISTORICAL ACTIVITY-->
+    <string name="historical_activity_request_error">There was an error requesting the rates</string>
+    <string name="historical_activity_rate">Rate: %f</string>
+    <string name="historical_activity_date">Date: %s</string>
+
+    <!--MAIN ACTIVITY-->
+    <string name="main_activity_currency">Currency:</string>
+    <string name="main_activity_toolbar_title">Today\'s rates</string>
+    <string name="main_activity_rate">Rate:</string>
 </resources>

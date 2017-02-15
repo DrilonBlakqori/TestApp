@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.testapp.activities.MainActivity"
+    tools:context="com.testapp.activities.HistoricalRatesActivity"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:popupTheme="@style/ThemeOverlay.AppCompat"
         android:background="@color/colorPrimary"
-        app:title="@string/main_activity_toolbar_title"
+        app:title="@string/historical_activity_toolbar_title"
         app:titleTextColor="@color/white"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -24,7 +23,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_historical_rate"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

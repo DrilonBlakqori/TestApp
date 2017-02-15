@@ -1,10 +1,10 @@
 package com.testapp.models;
 
-public class BitcoinRate {
+public class HistoricalRate {
 	private String dateString;
 	private double rate;
 
-	public BitcoinRate(String dateString, double rate) {
+	public HistoricalRate(String dateString, double rate) {
 		this.dateString = dateString;
 		this.rate = rate;
 	}
