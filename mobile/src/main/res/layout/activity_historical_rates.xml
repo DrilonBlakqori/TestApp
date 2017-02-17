@@ -9,10 +9,10 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:title="@string/historical_activity_toolbar_title"
         app:titleTextColor="@color/white"/>
 
     <android.support.v4.widget.SwipeRefreshLayout

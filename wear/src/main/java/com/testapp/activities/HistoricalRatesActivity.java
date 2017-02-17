@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
@@ -31,6 +32,8 @@ public class HistoricalRatesActivity extends MvpActivity<HistoricalRatesView, Hi
 	RecyclerView recyclerView;
 	@BindView(R.id.swipeRefresh)
 	SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.toolbarTitle)
+	TextView toolbarTitle;
 
 	private HistoricalRatesAdapter historicalRatesAdapter;
 
@@ -46,7 +49,7 @@ public class HistoricalRatesActivity extends MvpActivity<HistoricalRatesView, Hi
 		setContentView(R.layout.activity_historical_rates);
 		ButterKnife.bind(this);
 		setupRecycler();
-		presenter.init(this, getIntent().getExtras().getString(EXTRA_CURRENCY), savedInstanceState);
+		presenter.init(getIntent().getExtras().getString(EXTRA_CURRENCY), savedInstanceState);
 	}
 
 	private void setupRecycler() {
@@ -59,6 +62,11 @@ public class HistoricalRatesActivity extends MvpActivity<HistoricalRatesView, Hi
 	public void setupSwipeRefresh(OnRefreshListener onRefreshListener) {
 		swipeRefresh.setOnRefreshListener(onRefreshListener);
 		swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+	}
+
+	@Override
+	public void setToolbarTitle(String title) {
+		toolbarTitle.setText(title);
 	}
 
 	@Override
@@ -79,6 +87,6 @@ public class HistoricalRatesActivity extends MvpActivity<HistoricalRatesView, Hi
 	@NonNull
 	@Override
 	public HistoricalRatesPresenter createPresenter() {
-		return new HistoricalRatesPresenter();
+		return new HistoricalRatesPresenter(this);
 	}
 }

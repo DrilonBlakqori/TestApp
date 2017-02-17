@@ -9,6 +9,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -20,10 +21,39 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    //    project dependencies
     compile 'com.google.android.support:wearable:2.0.0'
     compile "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile "com.hannesdorfmann.mosby:mvp:$mvpMosbyVersion"
+
+    //    testing dependencies
+    androidTestCompile("com.android.support.test:runner:$supportTestVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile("com.android.support.test:rules:$supportTestVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espressoVersion", {
+        // Necessary to avoid version conflicts
+        exclude module: 'support-annotations'
+        exclude module: 'support-v4'
+        exclude module: 'support-v13'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'appcompat-v7'
+        exclude module: 'design'
+    })
+    androidTestCompile "com.android.support.test.uiautomator:uiautomator-v18:$uiAnimatorVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.powermock:powermock-api-mockito:$powerMockitoVersion"
+    testCompile "org.powermock:powermock-module-junit4-rule-agent:$powerMockitoVersion"
+    testCompile "org.powermock:powermock-module-junit4-rule:$powerMockitoVersion"
+    testCompile "org.powermock:powermock-module-junit4:$powerMockitoVersion"
+    testCompile "junit:junit:$jUnitVersion"
 }

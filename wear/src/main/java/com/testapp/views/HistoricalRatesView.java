@@ -12,6 +12,8 @@ public interface HistoricalRatesView extends MvpView {
 
 	void setupSwipeRefresh(OnRefreshListener onRefreshListener);
 
+	void setToolbarTitle(String title);
+
 	void setRefreshing(boolean refreshing);
 
 	void presentBitcoinRates(List<HistoricalRate> historicalRates);

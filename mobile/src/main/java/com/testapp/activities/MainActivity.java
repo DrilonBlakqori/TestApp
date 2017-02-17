@@ -37,7 +37,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 		setContentView(R.layout.activity_main);
 		ButterKnife.bind(this);
 		setupRecycler();
-		presenter.init(this, savedInstanceState);
+		presenter.init(savedInstanceState);
 	}
 
 	@Override
@@ -77,6 +77,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 	@NonNull
 	@Override
 	public MainPresenter createPresenter() {
-		return new MainPresenter();
+		return new MainPresenter(this);
 	}
 }

@@ -31,18 +31,22 @@ import static com.testapp.utils.SharedPrefsManager.getSharedPrefs;
 
 public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesView> implements OnRefreshListener {
 
-	private static final String TAG = "HistoricalPresenter";
+	public static final String TAG = "HistoricalPresenter";
 	private String currency;
 	private Context context;
 
 	private SimpleDateFormat simpleDateFormat;
 
-	public void init(Context context, String currency, Bundle savedInstanceState) {
+	public HistoricalRatesPresenter(Context context) {
 		this.context = context;
+	}
+
+	public void init(String currency, Bundle savedInstanceState) {
 		this.currency = currency;
 		if (getView() != null) {
 			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 			getView().setupSwipeRefresh(this);
+			getView().setToolbarTitle(currency);
 			showCachedData();
 			if (savedInstanceState == null) {
 				queryRates();
@@ -82,11 +86,11 @@ public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesVi
 			@Override
 			public void onResponse(Call<LinkedTreeMap> call, Response<LinkedTreeMap> response) {
 				if (getView() != null) {
-					if (response.isSuccessful()) {
+					if (response.isSuccessful() && response.body().size() > 0) {
 						storeInPrefs(response.body());
 						List<HistoricalRate> historicalRates = parseHistoricalRates(response.body());
 						getView().presentBitcoinRates(historicalRates);
-					} else {
+					} else if (!response.isSuccessful()){
 						getView().showMessage(R.string.historical_activity_request_error);
 						Log.e(TAG, response.message());
 					}

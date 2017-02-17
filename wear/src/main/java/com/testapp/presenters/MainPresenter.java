@@ -32,15 +32,18 @@ import static com.testapp.utils.SharedPrefsManager.getSharedPrefs;
 
 public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefreshListener {
 
-	private static final String TAG = "MainPresenter";
+	public static final String TAG = "MainPresenter";
 	private static final String ACTION_REFRESH = "com.testapp.action_refresh";
 	private static final int REQ_CODE_REFRESH = 8872;
 
 	private Context context;
 	private BroadcastReceiver broadcastReceiver;
 
-	public void init(Context context, Bundle savedInstanceState) {
+	public MainPresenter(Context context) {
 		this.context = context;
+	}
+
+	public void init(Bundle savedInstanceState) {
 		if (getView() != null) {
 			getView().setupSwipeRefresh(this);
 			showCachedData();
@@ -109,9 +112,13 @@ public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefre
 					return;
 				}
 				getView().setRefreshing(false);
-				storeInPrefs(response.body());
-				List<Rate> rates = parseBitcoinRates(response.body());
-				getView().presentRates(rates);
+				if (response.isSuccessful() && response.body().size() > 0) {
+					storeInPrefs(response.body());
+					List<Rate> rates = parseBitcoinRates(response.body());
+					getView().presentRates(rates);
+				} else if (!response.isSuccessful()){
+					getView().showMessage(R.string.main_activity_request_error);
+				}
 			}
 
 			@Override

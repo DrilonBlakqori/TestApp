@@ -65,7 +65,7 @@ public class MainRateAdapter extends Adapter<RateViewHolder> {
 		return rates.size();
 	}
 
-	class RateViewHolder extends ViewHolder {
+	public class RateViewHolder extends ViewHolder {
 
 		@BindView(R.id.currencyText)
 		TextView currencyText;

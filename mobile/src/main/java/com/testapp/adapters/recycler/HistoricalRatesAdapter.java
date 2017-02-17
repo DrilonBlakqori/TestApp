@@ -52,7 +52,7 @@ public class HistoricalRatesAdapter extends Adapter<HistoricalViewHolder> {
 		notifyDataSetChanged();
 	}
 
-	class HistoricalViewHolder extends ViewHolder {
+	public class HistoricalViewHolder extends ViewHolder {
 
 		@BindView(R.id.dateText)
 		TextView dateText;

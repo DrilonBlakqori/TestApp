@@ -11,6 +11,6 @@
     <string name="historical_activity_request_error">There was an error requesting the rates</string>
     <string name="historical_activity_rate">Rate: %f</string>
     <string name="historical_activity_date">Date: %s</string>
-    <string name="historical_activity_toolbar_title">Historical rates</string>
+    <string name="historical_activity_toolbar_title">%s historical rates</string>
 
 </resources>
