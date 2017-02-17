@@ -74,7 +74,7 @@ public class HistoricalRatesActivityWearUnitTest {
 	}
 
 	@Test
-	public void checkIfLiveRatesAreQueried() throws Exception {
+	public void checkIfHistoricalRatesAreQueried() throws Exception {
 		doAnswer(new Answer() {
 			@Override
 			public Object answer(InvocationOnMock invocation) throws Throwable {

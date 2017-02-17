@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 import static com.testapp.utils.SharedPrefsManager.getSharedPrefs;
 
-public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefreshListener {
+public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefreshListener, Callback<LinkedTreeMap> {
 
 	public static final String TAG = "MainPresenter";
 	private static final String ACTION_REFRESH = "com.testapp.action_refresh";
@@ -105,31 +105,31 @@ public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefre
 		}
 		getView().setRefreshing(true);
 		Call<LinkedTreeMap> call = RetrofitApi.getCoinDeskService().getLiveRates();
-		call.enqueue(new Callback<LinkedTreeMap>() {
-			@Override
-			public void onResponse(Call<LinkedTreeMap> call, Response<LinkedTreeMap> response) {
-				if (getView() == null) {
-					return;
-				}
-				getView().setRefreshing(false);
-				if (response.isSuccessful() && response.body().size() > 0) {
-					storeInPrefs(response.body());
-					List<Rate> rates = parseBitcoinRates(response.body());
-					getView().presentRates(rates);
-				} else if (!response.isSuccessful()){
-					getView().showMessage(R.string.main_activity_request_error);
-				}
-			}
+		call.enqueue(this);
+	}
 
-			@Override
-			public void onFailure(Call<LinkedTreeMap> call, Throwable t) {
-				if (getView() != null) {
-					getView().showMessage(R.string.main_activity_request_error);
-					Log.e(TAG, t.getMessage());
-					getView().setRefreshing(false);
-				}
-			}
-		});
+	@Override
+	public void onResponse(Call<LinkedTreeMap> call, Response<LinkedTreeMap> response) {
+		if (getView() == null) {
+			return;
+		}
+		getView().setRefreshing(false);
+		if (response.isSuccessful() && response.body().size() > 0) {
+			storeInPrefs(response.body());
+			List<Rate> rates = parseBitcoinRates(response.body());
+			getView().presentRates(rates);
+		} else if (!response.isSuccessful()){
+			getView().showMessage(R.string.main_activity_request_error);
+		}
+	}
+
+	@Override
+	public void onFailure(Call<LinkedTreeMap> call, Throwable t) {
+		if (getView() != null) {
+			getView().showMessage(R.string.main_activity_request_error);
+			Log.e(TAG, t.getMessage());
+			getView().setRefreshing(false);
+		}
 	}
 
 	private ArrayList<Rate> parseBitcoinRates(LinkedTreeMap body) {

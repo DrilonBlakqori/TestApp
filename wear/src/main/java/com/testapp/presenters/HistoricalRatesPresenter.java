@@ -29,7 +29,8 @@ import retrofit2.Response;
 
 import static com.testapp.utils.SharedPrefsManager.getSharedPrefs;
 
-public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesView> implements OnRefreshListener {
+public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesView>
+		implements OnRefreshListener, Callback<LinkedTreeMap> {
 
 	public static final String TAG = "HistoricalPresenter";
 	private String currency;
@@ -82,31 +83,31 @@ public class HistoricalRatesPresenter extends MvpBasePresenter<HistoricalRatesVi
 				currency,
 				simpleDateFormat.format(start),
 				simpleDateFormat.format(end));
-		call.enqueue(new Callback<LinkedTreeMap>() {
-			@Override
-			public void onResponse(Call<LinkedTreeMap> call, Response<LinkedTreeMap> response) {
-				if (getView() != null) {
-					if (response.isSuccessful() && response.body().size() > 0) {
-						storeInPrefs(response.body());
-						List<HistoricalRate> historicalRates = parseHistoricalRates(response.body());
-						getView().presentBitcoinRates(historicalRates);
-					} else if (!response.isSuccessful()){
-						getView().showMessage(R.string.historical_activity_request_error);
-						Log.e(TAG, response.message());
-					}
-					getView().setRefreshing(false);
-				}
-			}
+		call.enqueue(this);
+	}
 
-			@Override
-			public void onFailure(Call<LinkedTreeMap> call, Throwable t) {
-				if (getView() != null) {
-					getView().showMessage(R.string.historical_activity_request_error);
-					Log.e(TAG, t.getMessage());
-					getView().setRefreshing(false);
-				}
+	@Override
+	public void onResponse(Call<LinkedTreeMap> call, Response<LinkedTreeMap> response) {
+		if (getView() != null) {
+			if (response.isSuccessful() && response.body().size() > 0) {
+				storeInPrefs(response.body());
+				List<HistoricalRate> historicalRates = parseHistoricalRates(response.body());
+				getView().presentBitcoinRates(historicalRates);
+			} else if (!response.isSuccessful()){
+				getView().showMessage(R.string.historical_activity_request_error);
+				Log.e(TAG, response.message());
 			}
-		});
+			getView().setRefreshing(false);
+		}
+	}
+
+	@Override
+	public void onFailure(Call<LinkedTreeMap> call, Throwable t) {
+		if (getView() != null) {
+			getView().showMessage(R.string.historical_activity_request_error);
+			Log.e(TAG, t.getMessage());
+			getView().setRefreshing(false);
+		}
 	}
 
 	private void storeInPrefs(LinkedTreeMap body) {
