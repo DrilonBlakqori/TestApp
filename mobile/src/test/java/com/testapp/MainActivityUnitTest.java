@@ -35,7 +35,7 @@ import static org.powermock.api.mockito.PowerMockito.doAnswer;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Log.class, RetrofitApi.class})
+@PrepareForTest({Log.class, RetrofitApi.class, MainPresenter.class})
 public class MainActivityUnitTest {
 
 	@Mock

@@ -60,7 +60,7 @@ public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefre
 		stopAlarm();
 	}
 
-	public void stopAlarm() {
+	private void stopAlarm() {
 		AlarmManager alarmManager = ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE));
 		Intent refreshIntent = new Intent();
 		refreshIntent.setAction(ACTION_REFRESH);
@@ -80,7 +80,7 @@ public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefre
 		context.registerReceiver(broadcastReceiver, intentFilter);
 	}
 
-	public void startAlarm() {
+	private void startAlarm() {
 		AlarmManager alarmManager = ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE));
 		Intent refreshIntent = new Intent();
 		refreshIntent.setAction(ACTION_REFRESH);
