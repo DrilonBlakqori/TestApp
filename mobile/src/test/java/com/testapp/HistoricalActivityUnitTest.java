@@ -65,7 +65,7 @@ public class HistoricalActivityUnitTest {
 			}
 
 			@Override
-			public Call<LinkedTreeMap> getTodayRates() {
+			public Call<LinkedTreeMap> getLiveRates() {
 				return null;
 			}
 		};
@@ -74,7 +74,7 @@ public class HistoricalActivityUnitTest {
 	}
 
 	@Test
-	public void checkIfTodayRatesAreQueried() throws Exception {
+	public void checkIfLiveRatesAreQueried() throws Exception {
 		doAnswer(new Answer() {
 			@Override
 			public Object answer(InvocationOnMock invocation) throws Throwable {

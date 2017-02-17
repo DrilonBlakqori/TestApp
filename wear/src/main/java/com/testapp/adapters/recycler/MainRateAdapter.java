@@ -32,7 +32,7 @@ public class MainRateAdapter extends Adapter<RateViewHolder> {
 
 	@Override
 	public RateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_today_rate,
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_live_rate,
 				parent, false);
 		final RateViewHolder rateViewHolder = new RateViewHolder(view);
 		rateViewHolder.itemView.setOnClickListener(new OnClickListener() {

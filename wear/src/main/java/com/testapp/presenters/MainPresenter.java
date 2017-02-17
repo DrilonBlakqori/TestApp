@@ -92,7 +92,7 @@ public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefre
 
 
 	private void showCachedData() {
-		String ratesBody = SharedPrefsManager.getSharedPrefs(context).getString(Keys.todayRatesBody.name(), null);
+		String ratesBody = SharedPrefsManager.getSharedPrefs(context).getString(Keys.liveRatesBody.name(), null);
 		if (ratesBody != null && getView() != null) {
 			List<Rate> historicalRates = parseBitcoinRates(new Gson().fromJson(ratesBody, LinkedTreeMap.class));
 			getView().presentRates(historicalRates);
@@ -104,7 +104,7 @@ public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefre
 			return;
 		}
 		getView().setRefreshing(true);
-		Call<LinkedTreeMap> call = RetrofitApi.getCoinDeskService().getTodayRates();
+		Call<LinkedTreeMap> call = RetrofitApi.getCoinDeskService().getLiveRates();
 		call.enqueue(new Callback<LinkedTreeMap>() {
 			@Override
 			public void onResponse(Call<LinkedTreeMap> call, Response<LinkedTreeMap> response) {
@@ -149,7 +149,7 @@ public class MainPresenter extends MvpBasePresenter<MainView> implements OnRefre
 	}
 
 	private void storeInPrefs(LinkedTreeMap body) {
-		getSharedPrefs(context).edit().putString(Keys.todayRatesBody.name(),
+		getSharedPrefs(context).edit().putString(Keys.liveRatesBody.name(),
 				new Gson().toJson(body)).apply();
 	}
 

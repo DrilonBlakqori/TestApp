@@ -8,7 +8,7 @@ public class SharedPrefsManager {
 	private static final String PREFS_NAME = "com.testapp.prefs";
 
 	public enum Keys {
-		todayRatesBody,
+		liveRatesBody,
 		historicalRatesBody
 	}
 

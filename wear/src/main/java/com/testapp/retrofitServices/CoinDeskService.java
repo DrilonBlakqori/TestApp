@@ -13,5 +13,5 @@ public interface CoinDeskService {
 	Call<LinkedTreeMap> getHistoricalRates(@Query("currency") String currency, @Query("start") String start, @Query("end") String end);
 
 	@GET("v1/bpi/currentprice.json")
-	Call<LinkedTreeMap> getTodayRates();
+	Call<LinkedTreeMap> getLiveRates();
 }
