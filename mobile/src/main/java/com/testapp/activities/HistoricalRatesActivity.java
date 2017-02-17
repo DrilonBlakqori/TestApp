@@ -2,14 +2,12 @@ package com.testapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -57,11 +55,7 @@ public class HistoricalRatesActivity extends MvpActivity<HistoricalRatesView, Hi
 
 	private void setupRecycler() {
 		historicalRatesAdapter = new HistoricalRatesAdapter(this);
-		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			recyclerView.setLayoutManager(new LinearLayoutManager(this));
-		} else {
-			recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-		}
+		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 		recyclerView.setAdapter(historicalRatesAdapter);
 	}

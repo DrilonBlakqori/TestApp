@@ -39,6 +39,11 @@ public class HistoricalRatesAdapter extends Adapter<HistoricalViewHolder> {
 		HistoricalRate historicalRate = items.get(position);
 		holder.dateText.setText(context.getString(R.string.historical_activity_date, historicalRate.getDateString()));
 		holder.rateText.setText(context.getString(R.string.historical_activity_rate, historicalRate.getRate()));
+		if (position == getItemCount() - 1) {
+			holder.itemDivider.setVisibility(View.GONE);
+		} else {
+			holder.itemDivider.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -58,6 +63,8 @@ public class HistoricalRatesAdapter extends Adapter<HistoricalViewHolder> {
 		TextView dateText;
 		@BindView(R.id.rateText)
 		TextView rateText;
+		@BindView(R.id.itemDivider)
+		View itemDivider;
 
 		HistoricalViewHolder(View itemView) {
 			super(itemView);
